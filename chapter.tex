@@ -1,0 +1,497 @@
+%------------------------------------------------------------------------------
+\chapter{\ix{LaTeX}}
+\label{sec:share000.latex}
+%------------------------------------------------------------------------------
+\section{Introduction}
+%------------------------------------------------------------------------------
+
+From WikiPedia:
+\begin{quote}
+LaTeX is a document preparation system and document markup language. It is
+widely used for the communication and publication of scientific documents in
+many fields, including mathematics, physics, and computer science.
+\end{quote}
+
+\noindent
+LaTeX was chosen because the document markup format is fully text based. This
+allows archiving, comparing and merging of LaTeX sources in an identical way as
+C++ programming code. Such an approach enables the usage of tools and
+mechanisms that encourage or enforce a tight coupling between source code and
+its documentation.
+
+\noindent
+From WikiPedia:
+\begin{quote}
+LaTeX follows the design philosophy of separating presentation from content, so
+that authors can focus on the content of what they are writing without
+attending simultaneously to its visual appearance. In preparing a LaTeX
+document, the author specifies the logical structure using simple, familiar
+concepts such as chapter, section, table, figure, etc., and lets the LaTeX
+system worry about the formatting and layout of these structures. It therefore
+encourages the separation of layout from content while still allowing manual
+typesetting adjustments where needed. This concept is similar to the mechanism
+by which many word processors allow styles to be defined globally for an entire
+document or the use of Cascading Style Sheets to style HTML. The LaTeX system
+is a markup language that also handles typesetting and rendering.
+\end{quote}
+
+\noindent
+In this project we also aim to benefit that "authors can focus on the content
+of what they are writing without attending simultaneously to its visual
+appearance". The separation of presentation from content also prevents
+typographical differences between different developers. So eventually the
+contributions of different participants will integrate seamlessly. 
+
+A very good integral reference is \cite{LaTeX}. It counts 706 pages, just to
+indicate that the scope is rather broad. The scope of this chapter is limited
+to the mark-up commands a developer may need to document his component. All
+mark-up commands listed here are at least already used once in this project,
+so besides this chapter and \cite{LaTeX} a real-life example can be found in
+the archive. This allows us to keep the explanation of these mark-up commands
+very short.
+
+%------------------------------------------------------------------------------
+\section{Headings}\label{sec:LaTeX.Headings}
+%------------------------------------------------------------------------------
+
+The (component) developer is typically only confronted with sectioning a single
+chapter. In this project we put the content of a single chapter in a single
+file, typically called "chapter.tex". Such a file will typically start with
+
+\index{chapter@\textbackslash chapter\{\}}
+\index{section@\textbackslash section\{\}}
+\begin{lstlisting}[language=]
+%------------------------------------------------------------------------------
+\chapter{Title of the chapter}
+%------------------------------------------------------------------------------
+\section{Title of the first section in this chapter}
+%------------------------------------------------------------------------------
+\end{lstlisting}
+
+\noindent
+The !%---...! is a project convention. Lines starting with !%! are comments,
+and do not end up in the actual document. This convention is a visual aid to
+show the sectioning structure of you chapter in your source.
+
+It is also possible to have sub-sections in a section. Such a sub-sections will
+not end up in the table of contents. Please do not use !\subsubsection!,
+!paragraph! and !subparagraph!. A sub section with the commenting convention
+looks as follows:
+
+\index{subsection@\textbackslash subsection\{\}}
+\begin{lstlisting}[language=]
+%..............................................................................
+\subsection{Title of a sub-section}
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\section{Enumerating}
+%------------------------------------------------------------------------------
+
+LaTeX supports three forms of enumeration:
+\begin{description*}
+\item[description] This enumeration itself is of description type
+   \index{begin{description}1@\textbackslash begin\{description\}}
+   \index{begin{description}2@\textbackslash begin\{description*\}}
+   \index{end{description}1@\textbackslash end\{description\}}
+   \index{end{description}2@\textbackslash end\{description*\}}
+   \index{item1@\textbackslash item}
+   \index{item2@\textbackslash item{[}{]}}
+\item[itemize] Items have no boldfaced description, instead every item
+   gets a bullet.
+   \index{begin{itemize}1@\textbackslash begin\{itemize\}}
+   \index{begin{itemize}2@\textbackslash begin\{itemize*\}}
+   \index{end{itemize}1@\textbackslash end\{itemize\}}
+   \index{end{itemize}2@\textbackslash end\{itemize*\}}
+\item[enumerate] Items have also no description, but are numbered
+   \index{begin{enumerate}1@\textbackslash begin\{enumerate\}}
+   \index{begin{enumerate}2@\textbackslash begin\{enumerate*\}}
+   \index{end{enumerate}1@\textbackslash end\{enumerate\}}
+   \index{end{enumerate}2@\textbackslash end\{enumerate*\}}
+\end{description*}
+
+\noindent
+Above enumeration is made as follows:
+
+\begin{lstlisting}[language=]
+\begin{description*}
+\item[description] This enumeration itself is of description type
+\item[itemize] Items have no boldfaced description, instead every item
+   gets a bullet.
+\item[enumerate] Items have also no description, but are numbered
+\end{description*}
+\end{lstlisting}
+
+\noindent
+Every enumeration has two forms:
+\begin{enumerate}
+\item Without asterisk. \\
+   Results in vertical spacing between the items. This enumeration itself is
+   without asterisk.
+\item With asterisk. \\
+   Results in \emph{no} vertical spacing between the items. Former enumeration
+   used such style.
+\end{enumerate}
+
+\noindent
+This enumeration was made as follows:
+
+\begin{lstlisting}[language=]
+\begin{enumerate}
+\item Without asterisk. \\
+   Results in vertical spacing between the items. This enumeration itself is
+   without asterisk.
+\item With asterisk. \\
+   Results in \emph{no} vertical spacing between the items. Former enumeration
+   used such style.
+\end{enumerate}
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\section{Referring, citing, quoting and indexing}\label{sec:LaTeX.Ref}
+%------------------------------------------------------------------------------
+
+Headings, figures, listings, etc. can be labeled with a tag. The section
+"headings" is labeled e.g. as follows:
+
+\index{label@\textbackslash label\{\}}
+\begin{lstlisting}[language=]
+%------------------------------------------------------------------------------
+\section{Headings}\label{sec:LaTeX.Headings}
+%------------------------------------------------------------------------------
+\end{lstlisting}
+
+\index{S@\textbackslash S}
+\index{ref@\textbackslash ref\{\}}
+\index{pageref@\textbackslash pageref\{\}}
+
+\noindent
+Now it is possible to refer to this section with e.g.\\
+!\S\ref{sec:LaTeX.Headings} p\pageref{sec:LaTeX.Headings}! which will result in
+\S\ref{sec:LaTeX.Headings} p\pageref{sec:LaTeX.Headings}.
+
+In this project we have a label naming convention. Use the following prefixes:
+\begin{description*}
+\item[sec:] For chapters, sections and subsections
+\item[fig:] For figures
+\item[tab:] For tables
+\item[lst:] For listings
+\end{description*}
+
+\index{cite@\textbackslash cite\{\}}
+
+\noindent
+You can refer to an external source with e.g. !\cite{LaTeX}! which will look
+like \cite{LaTeX}. In the bibliography file !kubicas.lib! an item with the
+label !LaTeX! exists already.
+
+To include a quote in your text (just like the quotes from WikiPedia at the
+beginning of this chapter) you can use:
+
+\index{begin{quote}@\textbackslash begin\{quote\}}
+\index{end{quote}@\textbackslash end\{quote\}}
+\begin{lstlisting}[language=]
+\begin{quote}
+...
+\end{quote}
+\end{lstlisting}
+
+\index{ix@\textbackslash ix\{\}}
+\index{index@\textbackslash index\{\}}
+
+\noindent
+To mark a word in the text to be added to the index you can use !\ix{word}!.
+Sometimes the word in the text has a different conjugation then the conjugation
+you like to have in the index. Then you can use !form1\index{form2}!.
+Finally, it is possible to influence the sort order in the index. e.g.
+!\index{\textbackslash index\{\}}! will be placed under '\textbackslash', but
+!\index{index@\textbackslash index\{\}}! can be found under the 'i'.
+
+%------------------------------------------------------------------------------
+\section{UML figures}
+%------------------------------------------------------------------------------
+
+LaTeX has many very different ways to incorporate a figure into the text. 
+
+\noindent
+The environment !figure! creates a floating block. LaTeX will calculate the
+best position to embed the picture in the text. The environment !center! will
+center the figure horizontally.
+bla bla bla bla bla bla
+The !\caption! will put some text underneath the
+picture and give it a number. The !\label! is already discussed in
+\S\ref{sec:LaTeX.Ref} p\pageref{sec:LaTeX.Ref}.
+
+%------------------------------------------------------------------------------
+\section{Source listings}
+%------------------------------------------------------------------------------
+
+It is not the intention to include long listings of source code in the
+documentation. Still it is very common to show the principle of certain
+constructions in a few lines. In this project we use two source listing styles:
+
+\begin{enumerate*}
+\item As a floating object, with border, label and caption.
+\item Simple: just the listing, no label, no caption, no border, not floating
+\end{enumerate*}
+
+\noindent
+Listing~\ref{lst:LaTeX.lst.float} p\pageref{lst:LaTeX.lst.float} is a floating
+object and is made as follows:
+
+\begin{lstlisting}[
+   float,
+   frame=trBL,
+   caption={Listing as a floating object},
+   label={lst:LaTeX.lst.float},
+   gobble=3]
+   for( int i(0); i<10; ++i )
+   {
+      // do something
+   }
+\end{lstlisting}
+
+\index{begin{lstlisting}[]@\textbackslash begin\{lstlisting\}{[}{]}}
+\index{end{lstlisting}@\textbackslash end\{lstlisting\}}
+\index{gobble}
+{\footnotesize
+\begin{verbatim}
+\begin{lstlisting}[
+   float,
+   frame=trBL,
+   caption={Listing as a floating object},
+   label={lst:LaTeX.lst.float},
+   gobble=3]
+   for( int i(0); i<10; ++i )
+   {
+      // do something
+   }
+\end{lstlisting}
+\end{verbatim} }
+
+\noindent
+The default language is C++, and LaTeX will take care of syntax highlighting.
+A special parameter to remember is !gobble!. With !gobble! you can define the
+number of spaces that need to be ignored at the beginning of every line in the
+listing.
+
+The simple form of listing (which is intended to be used most often) looks as
+follows:
+\begin{lstlisting}
+for( int i(0); i<10; ++i )
+{
+   // do something
+}
+\end{lstlisting}
+
+\noindent
+and is made with:
+{\footnotesize
+\begin{verbatim}
+\begin{lstlisting}
+for( int i(0); i<10; ++i )
+{
+   // do something
+}
+\end{lstlisting}
+\end{verbatim} }
+
+\noindent
+When using identifiers of a listing in the text, it is appropriate to typeset
+it in the same font as the listing. That can be done with
+\lstinline[language=,basicstyle=\ttfamily]|!<some inline text>!| which results
+in \\
+!<some inline text>!.
+
+%------------------------------------------------------------------------------
+\section{No indention after vertical whitespace}
+%------------------------------------------------------------------------------
+
+LaTeX indents the first line when a new paragraph starts. But e.g. the first
+paragraph in a section is not indented. It is considered to be aesthetic that a
+paragraph is \emph{not} indented when it is preceded by vertical whitespace.
+Unfortunatelly LaTeX doesn't do so automatically. So after e.g. listings and
+enumerations we need to instruct LaTeX not to indent with the !\noindent!
+command. \index{noindent@\textbackslash noindent}
+
+%------------------------------------------------------------------------------
+\section{Miscellaneous}
+%------------------------------------------------------------------------------
+
+A few miscellaneous LaTeX commands:
+
+\begin{itemize}
+\index{emph{}@\textbackslash emph\{\}}
+\item !\emph{}! to emphasize a word like \emph{this}.
+\index{tbc@\textbackslash tbc}
+\item !\tbc! to indicate that text is unfinished: \tbc
+\index{abbr{}@\textbackslash abbr\{\}}
+\item !\abbr{}! for abbreviations like tbc = \abbr{t}o
+      \abbr{b}e \abbr{c}ontinued, which is made with \\
+      !tbc = \abbr{t}o \abbr{b}e \abbr{c}ontinued!
+\index{begin{Note}@\textbackslash begin\{Note\}}
+\index{end{Note}@\textbackslash end\{Note\}}
+\item !\begin{Note} \end{Note}! for a labeled note
+\index{begin{Definition}@\textbackslash begin\{Definition\}}
+\index{end{Definition}@\textbackslash end\{Definition\}}
+\item !\begin{Definition} \end{Definition}! for a labeled definition
+\index{Rightarrow@\$\textbackslash Rightarrow\$}
+\item !$\Rightarrow$! which results in: $\Rightarrow$
+\index{textbackslash@\textbackslash textbackslash}
+\item !\textbackslash! to print a backslash: \textbackslash
+\index{nth{}@\textbackslash nth\{\}}
+\item !\nth{}! for superscript counting numbers,
+      like \nth{1}, \nth{2}, \nth{3}, etc.
+\index{~@\textasciitilde}
+\item !~! represents an unbreakable space, e.g. for
+      !listing~\ref{lst:LaTeX.lst.float}!
+\end{itemize}
+
+%------------------------------------------------------------------------------
+\section{Installation for Windows}
+%------------------------------------------------------------------------------
+
+To install LaTeX for as we use it in this project you need to install all
+packages of the following sub sections.
+
+%..............................................................................
+\subsection{Install Gostscript}
+
+\begin{enumerate*}
+\item Navigate to the "LaTeX" directory
+\item Right click !gs914w64.exe! and select "run as administrator"
+\item Setup
+\item Next
+\item I Agree
+\item Destination folder: !C:\Program Files\gs\gs9.14!
+\item Install
+\item On: "Generate cidfmap for Windows CJK TrueType fonts" for Chinese,
+      Japanese and Korean fonts
+\item Off: Show readme
+\item Finish
+\end{enumerate*}
+
+%..............................................................................
+\subsection{Install gsview}
+
+\begin{enumerate*}
+\item Navigate to the "LaTeX" directory
+\item Right click !gsv50w64.exe! and select "run as administrator"
+\item Setup
+\item English
+\item Next
+\item Next
+\item On: "Associate PostScript (.ps and .eps) files with GSview"
+\item Off: "Associate PDF (.pdf) files with GSview"
+\item Next
+\item Destination folder: !C:\Program Files\Ghostgum!
+\item Next
+\item Next
+\item Finish
+\item Exit
+\end{enumerate*}
+
+%..............................................................................
+\subsection{Install MikTex}
+
+\begin{enumerate*}
+\item Navigate to the "LaTeX" directory
+\item Right click !basic-miktex-2.9.5105-x64.exe! and select "run as
+      administrator"
+\item Accept the MiKTeX copying conditions
+\item Next
+\item Anyone
+\item Next
+\item Destination folder: !C:\Program Files\MiKTeX 2.9!
+\item Next
+\item "A4" and "Ask me first"
+\item Next
+\item Start (takes 2 minutes)
+\item Next
+\item Close
+\item Press the Windows start button
+\item Select "All programs"
+\item Select "MiKTeX 2.9"
+\item Select "Maintenance (Admin)"
+\item Select "Update (Admin)"
+\item Next
+\item Next
+\item Next
+\item Finish
+\end{enumerate*}
+
+\begin{Note}
+On \url{http://www.miktex.org/download} a link is/was present to an
+installation tutorial and to a "run the update wizard" tutorial
+\end{Note}
+
+%------------------------------------------------------------------------------
+\section{Installation for Linux}
+%------------------------------------------------------------------------------
+
+\tbc
+
+%------------------------------------------------------------------------------
+\section{How LaTeX for Windows was downloaded}
+%------------------------------------------------------------------------------
+
+For the project, it is preferred that every participant uses the same version
+of tools. This also applies for LaTeX. Therefore it is not preferred that
+participants download their 'own' or the newest version of a tool. Instead an
+installation CD (or an ISO image) is prepared, which contains all appropriate
+versions. So please use the CD instead of following instructions below. The
+instructions below are only included to be able to create a new version of the
+installation CD.
+
+%..............................................................................
+\subsection{How Gostscript was downloaded}
+
+\begin{itemize*}
+\item Date of download: May \nth{2}, 2014
+\end{itemize*}
+\begin{enumerate*}
+\item went to \url{http://www.ghostscript.com}
+\item Under "Releases and News", click "here" of "Ghostscript releases can be
+      downloaded here".
+\item Click "Ghostscript 9.14"
+\item Selected "Ghostscript GPL Release" of "Ghostscript 9.14 for Windows
+      (64 bit)"
+\item Selected "Save as", and navigated to the "Installation" directory
+\item The file !gs914w64.exe! was downloaded
+\end{enumerate*}
+
+%..............................................................................
+\subsection{How gsview was downloaded}
+
+\begin{itemize*}
+\item Date of download: May \nth{2}, 2014
+\end{itemize*}
+\begin{enumerate*}
+\item went to \url{http://pages.cs.wisc.edu/~ghost/gsview/}
+\item Under "GSview Software", select "GSview release v5.0"
+\item Under "Obtaining GSview", select "gsv50w64.exe"
+\item Selected "Save as", and navigated to the "Installation" directory
+\item The file !gsv50w64.exe! was downloaded
+\end{enumerate*}
+
+%..............................................................................
+\subsection{How MikTeX was downloaded}
+
+\begin{itemize*}
+\item Date of download: May \nth{2}, 2014
+\end{itemize*}
+\begin{enumerate*}
+\item went to \url{http://www.miktex.org}
+\item Selected "Download"
+\item Selected "Other downloads"
+\item Selected "Basic MiKTeX 2.9.5105 64-bit Installer, Version 2.9.5105
+      Windows 64-bit, Size: 158.47 MB"
+\item Selected "Save as", and navigated to the "Installation" directory
+\item The file !basic-miktex-2.9.5105-x64.exe! was downloaded
+\end{enumerate*}
+
+%------------------------------------------------------------------------------
+\section{How LaTeX for Linux was downloaded}
+%------------------------------------------------------------------------------
+
+\tbc
